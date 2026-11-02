@@ -520,8 +520,8 @@
         return;
       }
 
-      const treeType = (certainty === 1 || !typeVal) ? null : typeVal;
-      const treeAge = (certainty === 1 || !ageVal) ? null : parseInt(ageVal);
+      const treeType = (certainty === 1 || !typeVal) ? "unknown" : typeVal;
+      const treeAge = (certainty === 1 || !ageVal) ? 0 : parseInt(ageVal);
 
       // Check for duplicate within 20m
       //const existingTree = false; 

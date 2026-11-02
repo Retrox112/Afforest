@@ -946,7 +946,7 @@
     /* ==========================================================================
        9. DEV TOOLS & HELPER UTILITIES
        ========================================================================== */
-    function handleDevCounterClick() {
+ /*   function handleDevCounterClick() {
       devTapCount++;
       if (devTapTimer) clearTimeout(devTapTimer);
       
@@ -966,12 +966,12 @@
       document.getElementById('devToolsModal').classList.add('hidden');
     }
 
-/*    function setDevDeviceMode(isMobile) {
+     function setDevDeviceMode(isMobile) {
       isMobileDevice = isMobile;
       applyDeviceModeUI();
       showToast(`Device mode overridden to: ${isMobile ? 'Mobile' : 'Desktop'}`);
     }
-*/
+
     async function addDemoTrees(count) {
       const demoSpecies = ['Oak', 'Pine', 'Birch', 'Maple', 'Banyan', 'Redwood', 'Eucalyptus', 'Cedar'];
       
@@ -1015,7 +1015,7 @@
       if (analyticsMap) runAnalyticsQuery();
       showToast("All tree data cleared from database.");
     }
-
+*/
     function showToast(message, isError = false) {
       const toast = document.getElementById('toast');
       const toastMsg = document.getElementById('toastMsg');

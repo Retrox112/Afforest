@@ -348,7 +348,7 @@
       resetCreateForm();
     }
 
-    function resetCreateForm() {
+/*    function resetCreateForm() {
       document.getElementById('treePostForm').reset();
       currentPhotoBase64 = null;
       selectedLat = null;
@@ -359,6 +359,35 @@
       document.getElementById('inputLat').value = '';
       document.getElementById('inputLng').value = '';
       document.getElementById('geoStatus').innerText = "Click 'Get GPS' to fetch precise location coordinates.";
+      updateCertaintyUI(1);
+    } */
+
+      function resetCreateForm() {
+      const form = document.getElementById('treePostForm');
+      if (form) form.reset();
+
+      currentPhotoBase64 = null;
+      selectedLat = null;
+      selectedLng = null;
+
+      const preview = document.getElementById('photoPreview');
+      if (preview) preview.classList.add('hidden');
+
+      const placeholder = document.getElementById('photoPlaceholder');
+      if (placeholder) placeholder.classList.remove('hidden');
+
+      const duplicateAlert = document.getElementById('duplicateAlert');
+      if (duplicateAlert) duplicateAlert.classList.add('hidden');
+
+      const inputLat = document.getElementById('inputLat');
+      if (inputLat) inputLat.value = '';
+
+      const inputLng = document.getElementById('inputLng');
+      if (inputLng) inputLng.value = '';
+
+      const geoStatus = document.getElementById('geoStatus');
+      if (geoStatus) geoStatus.innerText = "Click 'Get GPS' to fetch precise location coordinates.";
+
       updateCertaintyUI(1);
     }
 

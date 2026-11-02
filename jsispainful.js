@@ -421,7 +421,7 @@
             document.getElementById('inputLng').value = selectedLng.toFixed(6);
             status.innerText = "Location locked successfully!";
             status.className = "text-[10px] text-forest-400 mt-1";
-            checkForDuplicates(selectedLat, selectedLng);
+            //checkForDuplicates(selectedLat, selectedLng);
           },
           (err) => {
             // Fallback random mock coordinates if user denies or on dev

@@ -1,5 +1,3 @@
-//themes and stuff
-
 tailwind.config = {
     darkMode: 'class',
     theme: {

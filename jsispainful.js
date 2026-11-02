@@ -67,6 +67,7 @@
       }
     }
 
+    //edit this to retrieve data from cloud
     function loadDatabase() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
@@ -80,7 +81,8 @@
         saveDatabase();
       }
     }
-
+    
+    //edit this to store data in cloud
     function saveDatabase() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(treeDB));
       updateTreeCounters();

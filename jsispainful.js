@@ -967,9 +967,10 @@
           }]
         };
         treeDB.unshift(demoTree);
+        await saveTreeToCloud(demoTree); // Save the most recent demo tree to cloud
       }
 
-      await saveTreeToCloud(demoTree); // Save the most recent demo tree to cloud
+      
       refreshMapHeatmaps();
       renderBlogFeed();
       if (analyticsMap) runAnalyticsQuery();

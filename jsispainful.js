@@ -943,7 +943,7 @@
       showToast(`Device mode overridden to: ${isMobile ? 'Mobile' : 'Desktop'}`);
     }
 */
-    function addDemoTrees(count) {
+    async function addDemoTrees(count) {
       const demoSpecies = ['Oak', 'Pine', 'Birch', 'Maple', 'Banyan', 'Redwood', 'Eucalyptus', 'Cedar'];
       
       for (let i = 0; i < count; i++) {
@@ -969,16 +969,17 @@
         treeDB.unshift(demoTree);
       }
 
-      savetreeToCloud(treeDB[0]); // Save the most recent demo tree to cloud
+      await saveTreeToCloud(demoTree); // Save the most recent demo tree to cloud
       refreshMapHeatmaps();
       renderBlogFeed();
       if (analyticsMap) runAnalyticsQuery();
       showToast(`Added ${count} demo trees into database!`);
     }
 
-    function clearAllTrees() {
+    async function clearAllTrees() {
+      const { error } = await supabaseClient.from('trees').delete().neq('id', ''); 
+      if (error) console.warn('Cloud delete warning:', error);
       treeDB = [];
-      savetreeToCloud(null); // Clear cloud database
       refreshMapHeatmaps();
       renderBlogFeed();
       if (analyticsMap) runAnalyticsQuery();

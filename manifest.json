@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "auto",
+  "display": "standalone",
+  "name": "Afforest",
+  "orientation": "portrait",
+  "scope": "/Afforest",
+  "short_name": "Afforest",
+  "start_url": "/Afforest",
+  "theme_color": "#ffffff",
+  "id": "Afforest",
+  "lang": "en"
+}

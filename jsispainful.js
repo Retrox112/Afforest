@@ -25,9 +25,9 @@
     /* ==========================================================================
        2. APP LAUNCH & DEVICE DETECTION
        ========================================================================== */
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
       detectDevice();
-      loadDatabase();
+      await loadDatabase();
       setTimeout(() => {
         initMaps();
         updateTreeCounters();
@@ -66,7 +66,7 @@
           : "text-[10px] px-2 py-0.5 rounded-full font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30";
       }
     }
-
+/*
     //edit this to retrieve data from cloud
     function loadDatabase() {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -87,12 +87,55 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(treeDB));
       updateTreeCounters();
     }
-
+*/
     function updateTreeCounters() {
       const total = treeDB.length;
       document.getElementById('headerTreeCount').innerText = total;
       document.getElementById('homeTotalTrees').innerText = total.toLocaleString();
     }
+
+/* ==========================================================================
+   SUPABASE DATABASE INTEGRATION
+   ========================================================================== */
+  const SUPABASE_URL = 'https://supabase.com/dashboard/project/ztzooirkdgvlpxnkzlgu';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0em9vaXJrZGd2bHB4bmt6bGd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MzAzODEsImV4cCI6MjEwOTIwNjM4MX0.VFkr319f9ZFPD3zUXhohdRdIErjjOcr-l7rk33VRPb8';
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Fetch all tree records from the cloud database
+  async function loadDatabase() {
+    try {
+      const { data, error } = await supabaseClient
+        .from('trees')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      treeDB = data || [];
+      updateTreeCounters();
+      renderBlogFeed();
+      refreshMapHeatmaps();
+    } catch (err) {
+      console.error('Failed to load trees from cloud:', err);
+      showToast('Cloud database offline. Falling back to local cache.', true);
+    }
+  }
+
+  // Insert a single new tree record into the cloud database
+  async function saveTreeToCloud(newTree) {
+    try {
+      const { error } = await supabaseClient
+        .from('trees')
+        .insert([newTree]);
+
+      if (error) throw error;
+
+      showToast("Tree observation synced to cloud successfully!");
+    } catch (err) {
+      console.error('Cloud save failed:', err);
+      showToast("failed to sync to cloud.", true);
+    }
+  }
 
     /* ==========================================================================
        3. ROUTING & NAVIGATION
@@ -500,10 +543,12 @@
         };
         treeDB.unshift(newTree);
         showToast("New tree observation published successfully!");
-      saveDatabase();
+      //saveDatabase();
       refreshMapHeatmaps();
       renderBlogFeed();
       closeCreateModal();
+      updateTreeCounters();
+      saveTreeToCloud(newTree);
     }
 
     /* ==========================================================================

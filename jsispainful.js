@@ -97,7 +97,7 @@
 /* ==========================================================================
    SUPABASE DATABASE INTEGRATION
    ========================================================================== */
-  const SUPABASE_URL = 'https://supabase.com/dashboard/project/ztzooirkdgvlpxnkzlgu';
+  const SUPABASE_URL = 'https://ztzooirkdgvlpxnkzlgu.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0em9vaXJrZGd2bHB4bmt6bGd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MzAzODEsImV4cCI6MjEwOTIwNjM4MX0.VFkr319f9ZFPD3zUXhohdRdIErjjOcr-l7rk33VRPb8';
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -969,7 +969,7 @@
         treeDB.unshift(demoTree);
       }
 
-      saveDatabase();
+      savetreeToCloud(treeDB[0]); // Save the most recent demo tree to cloud
       refreshMapHeatmaps();
       renderBlogFeed();
       if (analyticsMap) runAnalyticsQuery();
@@ -978,7 +978,7 @@
 
     function clearAllTrees() {
       treeDB = [];
-      saveDatabase();
+      savetreeToCloud(null); // Clear cloud database
       refreshMapHeatmaps();
       renderBlogFeed();
       if (analyticsMap) runAnalyticsQuery();

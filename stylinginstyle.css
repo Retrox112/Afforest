@@ -53,3 +53,8 @@
       touch-action: none;
       pointer-events: none; /* Allows click-through to Leaflet controls by default */
     }
+
+  #interactiveMap, #homeHeatmap, #analyticsMap {
+    min-height: 350px;
+    width: 100%;
+  }

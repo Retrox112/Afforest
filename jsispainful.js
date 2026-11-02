@@ -109,7 +109,6 @@
         target.classList.add('active');
       }
 
-      // Update Bottom Nav Buttons
       document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.remove('text-forest-400');
         btn.classList.add('text-slate-400');
@@ -120,15 +119,17 @@
         activeNav.classList.add('text-forest-400');
       }
 
-      // Invalidate map sizes on tab switch
       setTimeout(() => {
         if (pageId === 'home' && homeMap) homeMap.invalidateSize();
-        if (pageId === 'map' && interactiveMap) interactiveMap.invalidateSize();
+        if (pageId === 'map' && interactiveMap) {
+          interactiveMap.invalidateSize();
+          interactiveMap.setView(interactiveMap.getCenter(), interactiveMap.getZoom());
+        }
         if (pageId === 'analytics' && analyticsMap) {
           analyticsMap.invalidateSize();
           runAnalyticsQuery();
         }
-      }, 150);
+      }, 250);
     }
 
     /* ==========================================================================
@@ -142,7 +143,7 @@
     const TILE_ATTR = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, OpenStreetMap contributors';
 
     function initMaps() {
-      // 1. Home Page Map
+      
       homeMap = L.map('homeHeatmap', {
         zoomControl: false,
         attributionControl: false
@@ -150,12 +151,16 @@
       L.tileLayer(DARK_TILES, { maxZoom: 16 }).addTo(homeMap);
       homePinsGroup = L.layerGroup().addTo(homeMap);
 
-      // 2. Interactive Map Page
       interactiveMap = L.map('interactiveMap').setView([20, 0], 2);
       L.tileLayer(DARK_TILES, { attribution: TILE_ATTR, maxZoom: 16 }).addTo(interactiveMap);
       interactivePinsGroup = L.layerGroup().addTo(interactiveMap);
 
       renderInteractivePins();
+
+      setTimeout(() => {
+        if (homeMap) homeMap.invalidateSize();
+        if (interactiveMap) interactiveMap.invalidateSize();
+      }, 300);
     }
 
     function refreshMapHeatmaps() {

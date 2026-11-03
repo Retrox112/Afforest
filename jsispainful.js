@@ -102,7 +102,7 @@
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // Fetch all tree records from the cloud database
-  async function loadDatabase() {
+/*  async function loadDatabase() {
     try {
       const { data, error } = await supabaseClient
         .from('trees')
@@ -111,6 +111,30 @@
 
       if (error) throw error;
 
+      treeDB = data || [];
+      updateTreeCounters();
+      renderBlogFeed();
+      refreshMapHeatmaps();
+    } catch (err) {
+      console.error('Failed to load trees from cloud:', err);
+      showToast("Cloud database offline.", true);
+    }
+  } */
+
+    // Fetch all tree records using direct fetch to avoid SDK path quirks
+  async function loadDatabase() {
+    try {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/trees?select=*&order=created_at.desc`, {
+        method: 'GET',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        }
+      });
+
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+      const data = await response.json();
       treeDB = data || [];
       updateTreeCounters();
       renderBlogFeed();

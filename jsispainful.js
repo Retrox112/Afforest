@@ -105,7 +105,7 @@
   async function loadDatabase() {
     try {
       const { data, error } = await supabaseClient
-        .from('trees')
+        .from('')
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -117,7 +117,7 @@
       refreshMapHeatmaps();
     } catch (err) {
       console.error('Failed to load trees from cloud:', err);
-      showToast('Cloud database offline. Falling back to local cache.', true);
+      showToast('Cloud database offline.', true);
     }
   }
 

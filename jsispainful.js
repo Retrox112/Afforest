@@ -248,7 +248,7 @@
       // Custom Glowing Forest Green Accent Dot Icon
       const dotIcon = L.divIcon({
         className: 'custom-tree-dot',
-        html: `<div style="width: 6px; height: 6px; background-color: #52b788; border-radius: 50%; border: 2px solid #ffffff; box-shadow: 0 0 10px #52b788; z-index: 100;"></div>`,
+        html: `<div style="width: 8px; height: 8px; background-color: #52b788; border-radius: 50%; border: 2px solid #ffffff; box-shadow: 0 0 10px #52b788; z-index: 100;"></div>`,
         iconSize: [12, 12],
         iconAnchor: [6, 6]
       });

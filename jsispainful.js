@@ -117,7 +117,7 @@
       refreshMapHeatmaps();
     } catch (err) {
       console.error('Failed to load trees from cloud:', err);
-      showToast('Cloud database offline.', true);
+      showToast("Cloud database offline.", true);
     }
   }
 

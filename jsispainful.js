@@ -588,6 +588,7 @@
           type: treeType,
           age: treeAge,
           certainty: certainty,
+          created_at: new Date().toISOString() + timezoneOffset(), // Add timestamp for cloud database
           logs: [{
             photo: currentPhotoBase64,
             timestamp: new Date().toISOString(),
@@ -603,6 +604,13 @@
       updateTreeCounters();
       saveTreeToCloud(newTree);
     }
+    timezoneOffset = function() {
+      const offset = new Date().getTimezoneOffset();
+      const sign = offset > 0 ? '-' : '+';
+      const hours = String(Math.floor(Math.abs(offset) / 60)).padStart(2, '0');
+      const minutes = String(Math.abs(offset) % 60).padStart(2, '0');
+      return `${sign}${hours}:${minutes}`;
+    };
 
     /* ==========================================================================
        7. TREE DETAIL MODAL VIEW

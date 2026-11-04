@@ -139,7 +139,7 @@
         <!-- 4. Global Credits & Attributions Section -->
         <div class="bg-navy-900/60 border border-navy-800/60 rounded-2xl p-5 shadow-lg text-center space-y-3">
           <p class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-code text-cyanacc"></i> Attributions & Global Tech Stack
+            <i class="fa-solid fa-code text-cyanacc"></i> Attributions
           </p>
           <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-400">
             <span><i class="fa-solid fa-map text-emerald-400 mr-1"></i> OpenStreetMap & Esri Dark Tiles</span>
@@ -161,7 +161,7 @@
     </section>
 
     <!-- PAGE 2: INTERACTIVE MAP PAGE -->
-    <section id="page-map" class="page-content h-full hidden relative flex-col">
+    <section id="page-map" class="page-content h-full hidden relative flex-row flex-1 overflow-hidden">
       <div id="interactiveMap" class="w-full h-full flex-1 z-0"></div>
     </section>
 
@@ -488,7 +488,7 @@
         <span class="text-[10px] font-semibold">Map</span>
       </button>
 
-      <!-- Center Action Button (Mobile Camera Launch) - Moved down slightly with -mt-3 -->
+      <!-- Center Action Button (Mobile Camera Launch) -->
       <button onclick="openCreateModal()" id="nav-post" class="flex items-center justify-center -mt-3 w-12 h-12 rounded-full bg-gradient-to-tr from-forest-700 via-forest-500 to-cyanacc text-white shadow-xl glow-forest border-2 border-navy-950 transform active:scale-95 transition">
         <i class="fa-solid fa-plus text-xl"></i>
       </button>

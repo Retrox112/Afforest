@@ -215,11 +215,11 @@
         zoomControl: false,
         attributionControl: false
       }).setView([20, 0], 2);
-      L.tileLayer(DARK_TILES, { maxZoom: 16 }).addTo(homeMap);
+      L.tileLayer(DARK_TILES, { 'attribution': TILE_ATTR, maxZoom: 16 }).addTo(homeMap);
       homePinsGroup = L.layerGroup().addTo(homeMap);
 
       interactiveMap = L.map('interactiveMap').setView([20, 0], 2);
-      L.tileLayer(DARK_TILES, { attribution: TILE_ATTR, maxZoom: 16 }).addTo(interactiveMap);
+      L.tileLayer(DARK_TILES, { 'attribution': TILE_ATTR, maxZoom: 16 }).addTo(interactiveMap);
       interactivePinsGroup = L.layerGroup().addTo(interactiveMap);
 
       renderInteractivePins();

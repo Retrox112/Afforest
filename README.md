@@ -8,3 +8,5 @@ they can take a picture of the tree and log its location, the type of tree and i
 its a simple app, hope you enjoy using it.
 
 ive only released the android ver. but feel free to fork this repo and use PWABuilder to generate an ios installer, this is opensource with no need for attribution.
+
+Ai disclosure: ai was used to make the initial base application and was used to make complex bits of code such as map rendering and used in refactoring.

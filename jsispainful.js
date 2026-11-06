@@ -1,6 +1,4 @@
-   /* ==========================================================================
-       1. INITIALIZATION & SEED DATA
-       ========================================================================== */
+//init
     const STORAGE_KEY = 'afforest_trees_db_v2';
 
     let treeDB = [];
@@ -8,7 +6,6 @@
     let devTapCount = 0;
     let devTapTimer = null;
 
-    // Certainty Slider Text Map
     const CERTAINTY_MAP = {
       1: "Unknown",
       2: "Extremely Doubtful",
@@ -22,9 +19,7 @@
       10: "Certain"
     };
 
-    /* ==========================================================================
-       2. APP LAUNCH & DEVICE DETECTION
-       ========================================================================== */
+//applaunch
     window.addEventListener('DOMContentLoaded', async () => {
       detectDevice();
       await loadDatabase();
@@ -66,62 +61,18 @@
           : "text-[10px] px-2 py-0.5 rounded-full font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30";
       }
     }
-/*
-    //edit this to retrieve data from cloud
-    function loadDatabase() {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        try {
-          treeDB = JSON.parse(stored);
-        } catch(e) {
-          treeDB = [];
-        }
-      } else {
-        treeDB = [];
-        saveDatabase();
-      }
-    }
-    
-    //edit this to store data in cloud
-    function saveDatabase() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(treeDB));
-      updateTreeCounters();
-    }
-*/
+
     function updateTreeCounters() {
       const total = treeDB.length;
       document.getElementById('headerTreeCount').innerText = total;
       document.getElementById('homeTotalTrees').innerText = total.toLocaleString();
     }
 
-/* ==========================================================================
-   SUPABASE DATABASE INTEGRATION
-   ========================================================================== */
+//database
   const SUPABASE_URL = 'https://ztzooirkdgvlpxnkzlgu.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0em9vaXJrZGd2bHB4bmt6bGd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MzAzODEsImV4cCI6MjEwOTIwNjM4MX0.VFkr319f9ZFPD3zUXhohdRdIErjjOcr-l7rk33VRPb8';
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  // Fetch all tree records from the cloud database
-/*  async function loadDatabase() {
-    try {
-      const { data, error } = await supabaseClient
-        .from('trees')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-
-      treeDB = data || [];
-      updateTreeCounters();
-      renderBlogFeed();
-      refreshMapHeatmaps();
-    } catch (err) {
-      console.error('Failed to load trees from cloud:', err);
-      showToast("Cloud database offline.", true);
-    }
-  } */
-
-    // Fetch all tree records using direct fetch to avoid SDK path quirks
   async function loadDatabase() {
     try {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/trees?select=*&order=created_at.desc`, {
@@ -145,7 +96,6 @@
     }
   }
 
-  // Insert a single new tree record into the cloud database
   async function saveTreeToCloud(newTree) {
     try {
       const { error } = await supabaseClient
@@ -161,9 +111,7 @@
     }
   }
 
-    /* ==========================================================================
-       3. ROUTING & NAVIGATION
-       ========================================================================== */
+//nav
     function navigateTo(pageId) {
       document.querySelectorAll('.page-content').forEach(el => {
         el.classList.add('hidden');
@@ -198,14 +146,10 @@
         }
       }, 250);
     }
-
-    /* ==========================================================================
-       4. MAPS ENGINE (ALWAYS-ENABLED ACCENT GREEN DOTS)
-       ========================================================================== */
+//maps
     let homeMap, interactiveMap, analyticsMap;
     let homePinsGroup, interactivePinsGroup, analyticsPinsGroup;
 
-    // Public Dark Tile Layer (Esri Dark Gray Canvas - No API Key Needed)
     const DARK_TILES = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
     const TILE_ATTR = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, OpenStreetMap contributors';
 
@@ -237,15 +181,12 @@
       renderInteractivePins();
     }
 
-    /* ==========================================================================
-       4.1 MAP MARKERS / DOTS RENDERER
-       ========================================================================== */
+//map pins
     function renderInteractivePins() {
       if (homePinsGroup) homePinsGroup.clearLayers();
       if (interactivePinsGroup) interactivePinsGroup.clearLayers();
       if (analyticsPinsGroup) analyticsPinsGroup.clearLayers();
 
-      // Custom Glowing Forest Green Accent Dot Icon
       const dotIcon = L.divIcon({
         className: 'custom-tree-dot',
         html: `<div style="width: 8px; height: 8px; background-color: #52b788; border-radius: 100%; border: 2px solid #ffffff; box-shadow: 0 0 10px #52b788; z-index: 100;"></div>`,
@@ -267,19 +208,16 @@
           </div>
         `;
 
-        // Add to Home Map pins layer
         if (homePinsGroup) {
           const homeMarker = L.marker([tree.lat, tree.lng], { icon: dotIcon }).bindPopup(popupContent);
           homePinsGroup.addLayer(homeMarker);
         }
 
-        // Add to Interactive Map pins layer
         if (interactivePinsGroup) {
           const marker = L.marker([tree.lat, tree.lng], { icon: dotIcon }).bindPopup(popupContent);
           interactivePinsGroup.addLayer(marker);
         }
 
-        // Add to Analytics Map pins layer if created
         if (analyticsPinsGroup) {
           const analyticsMarker = L.marker([tree.lat, tree.lng], { icon: dotIcon }).bindPopup(popupContent);
           analyticsPinsGroup.addLayer(analyticsMarker);
@@ -287,9 +225,7 @@
       });
     }
 
-    /* ==========================================================================
-       5. BLOG FEED MODULE
-       ========================================================================== */
+//blogfeed
     function renderBlogFeed() {
       const feedContainer = document.getElementById('blogFeedList');
       if (!feedContainer) return;
@@ -352,9 +288,7 @@
       }).join('');
     }
 
-    /* ==========================================================================
-       6. CREATE POST & CAMERA MODAL LOGIC
-       ========================================================================== */
+    // create post, cam
     let currentPhotoBase64 = null;
     let selectedLat = null;
     let selectedLng = null;
@@ -371,20 +305,6 @@
       document.getElementById('createPostModal').classList.add('hidden');
       resetCreateForm();
     }
-
-/*    function resetCreateForm() {
-      document.getElementById('treePostForm').reset();
-      currentPhotoBase64 = null;
-      selectedLat = null;
-      selectedLng = null;
-      document.getElementById('photoPreview').classList.add('hidden');
-      document.getElementById('photoPlaceholder').classList.remove('hidden');
-      document.getElementById('duplicateAlert').classList.add('hidden');
-      document.getElementById('inputLat').value = '';
-      document.getElementById('inputLng').value = '';
-      document.getElementById('geoStatus').innerText = "Click 'Get GPS' to fetch precise location coordinates.";
-      updateCertaintyUI(1);
-    } */
 
       function resetCreateForm() {
       const form = document.getElementById('treePostForm');
@@ -445,17 +365,8 @@
             document.getElementById('inputLng').value = selectedLng.toFixed(6);
             status.innerText = "Location locked successfully!";
             status.className = "text-[10px] text-forest-400 mt-1";
-            //checkForDuplicates(selectedLat, selectedLng);
           },
           (err) => {
-            // Fallback random mock coordinates if user denies or on dev
-            /*selectedLat = 37.7749 + (Math.random() - 0.5) * 0.05;
-            selectedLng = -122.4194 + (Math.random() - 0.5) * 0.05;
-            document.getElementById('inputLat').value = selectedLat.toFixed(6);
-            document.getElementById('inputLng').value = selectedLng.toFixed(6);
-            status.innerText = "GPS unavailable. Generated mock coordinates for testing.";
-            status.className = "text-[10px] text-amber-400 mt-1";
-            checkForDuplicates(selectedLat, selectedLng);*/
             showToast("Unable to acquire GPS location. Please ensure location services are enabled.", true);
             status.innerText = "Failed to acquire GPS location.";
             status.className = "text-[10px] text-rose-400 mt-1";
@@ -479,7 +390,7 @@
       const reqTreeType = document.getElementById('reqTreeType');
       const reqTreeAge = document.getElementById('reqTreeAge');
 
-      if (numericVal === 1) { // 1 = Unknown
+      if (numericVal === 1) { 
         typeInput.disabled = true;
         ageInput.disabled = true;
         typeInput.value = "";
@@ -503,16 +414,6 @@
       }
     }
 
-/*    function checkForDuplicates(lat, lng) {
-      const existing = findNearbyTree(lat, lng, 20); // 20 meters threshold
-      const alertBox = document.getElementById('duplicateAlert');
-      if (existing) {
-        alertBox.classList.remove('hidden');
-      } else {
-        alertBox.classList.add('hidden');
-      }
-    }
-*/
     function calculateDistanceMeters(lat1, lon1, lat2, lon2) {
       const R = 6371e3;
       const p1 = lat1 * Math.PI/180;
@@ -526,15 +427,10 @@
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
       return R * c;
     }
-/*
-    function findNearbyTree(lat, lng, maxMeters = 20) {
-      return treeDB.find(t => calculateDistanceMeters(t.lat, t.lng, lat, lng) <= maxMeters);
-    }
-*/
+
     function handleTreeSubmit(event) {
       event.preventDefault();
 
-      // Check required Photo or GPS or Form fields
       const certainty = parseInt(document.getElementById('certaintyRange').value);
       const typeVal = document.getElementById('inputTreeType').value.trim();
       const ageVal = document.getElementById('inputTreeAge').value.trim();
@@ -547,39 +443,6 @@
       const treeType = (certainty === 1 || !typeVal) ? "unknown" : typeVal;
       const treeAge = (certainty === 1 || !ageVal) ? 0 : parseInt(ageVal);
 
-      // Check for duplicate within 20m
-      //const existingTree = false; 
-      //findNearbyTree(selectedLat, selectedLng, 20);
-/*
-      if (existingTree) {
-        // Append log to existing tree history
-        existingTree.logs.push({
-          photo: currentPhotoBase64,
-          timestamp: new Date().toISOString(),
-          certainty: certainty
-        });
-        if (treeType && !existingTree.type) existingTree.type = treeType;
-        if (treeAge && existingTree.age === null) existingTree.age = treeAge;
-        showToast("Image logged to existing tree entry!");
-      } else {
-        // Create new tree entry
-        const newTree = {
-          id: 'tree_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
-          lat: selectedLat,
-          lng: selectedLng,
-          type: treeType,
-          age: treeAge,
-          certainty: certainty,
-          logs: [{
-            photo: currentPhotoBase64,
-            timestamp: new Date().toISOString(),
-            certainty: certainty
-          }]
-        };
-        treeDB.unshift(newTree);
-        showToast("New tree observation published successfully!");
-      }
-*/
         // Create new tree entry
         const newTree = {
           id: 'tree_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
@@ -597,7 +460,6 @@
         };
         treeDB.unshift(newTree);
         showToast("New tree observation published successfully!");
-      //saveDatabase();
       refreshMapHeatmaps();
       renderBlogFeed();
       closeCreateModal();
@@ -611,10 +473,7 @@
       const minutes = String(Math.abs(offset) % 60).padStart(2, '0');
       return `${sign}${hours}:${minutes}`;
     };
-
-    /* ==========================================================================
-       7. TREE DETAIL MODAL VIEW
-       ========================================================================== */
+//tree detail
     function openTreeDetail(treeId) {
       const tree = treeDB.find(t => t.id === treeId);
       if (!tree) return;
@@ -661,9 +520,7 @@
       document.getElementById('treeDetailModal').classList.add('hidden');
     }
 
-    /* ==========================================================================
-       8. SPATIAL DATA RETRIEVAL & ANALYTICS MODULE
-       ========================================================================== */
+//alalytics
     let analyticsMode = 'pin'; // 'pin' | 'draw'
     let pinMarker = null;
     let radiusCircle = null;
@@ -682,7 +539,6 @@
       analyticsPinsGroup = L.layerGroup().addTo(analyticsMap);
       renderInteractivePins();
 
-      // Default analytics pin
       pinMarker = L.marker([20, 0], { draggable: true }).addTo(analyticsMap);
       radiusCircle = L.circle([20, 0], {
         radius: 100000,
@@ -733,7 +589,7 @@
         radCtrl.classList.add('hidden');
         drawCtrl.classList.remove('hidden');
         canvas.classList.remove('hidden');
-        canvas.style.pointerEvents = 'auto'; // Enable draw events on canvas
+        canvas.style.pointerEvents = 'auto';
         if (pinMarker) analyticsMap.removeLayer(pinMarker);
         if (radiusCircle) analyticsMap.removeLayer(radiusCircle);
       }
@@ -778,7 +634,6 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (drawnPoints.length < 2) return;
 
-        // Enhanced bright glowing line rendering during draw drag
         ctx.beginPath();
         ctx.strokeStyle = '#52b788';
         ctx.lineWidth = 4;
@@ -838,7 +693,6 @@
       runAnalyticsQuery();
     }
 
-    // Ray-casting point-in-polygon algorithm
     function isPointInPolygon(point, vs) {
       const x = point[0], y = point[1];
       let inside = false;
@@ -866,7 +720,6 @@
         filtered = treeDB;
       }
 
-      // Update Analytics Dashboard Stats
       document.getElementById('statAreaCount').innerText = filtered.length;
       document.getElementById('filteredListBadge').innerText = `${filtered.length} Items`;
 
@@ -902,7 +755,6 @@
         return arr.length > 0 ? (arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : 0;
       });
 
-      // Render Species Bar Chart
       const ctx1 = document.getElementById('chartSpecies').getContext('2d');
       if (chartSpeciesInst) chartSpeciesInst.destroy();
       chartSpeciesInst = new Chart(ctx1, {
@@ -927,7 +779,6 @@
         }
       });
 
-      // Render Mean Age Chart
       const ctx2 = document.getElementById('chartAges').getContext('2d');
       if (chartAgesInst) chartAgesInst.destroy();
       chartAgesInst = new Chart(ctx2, {
@@ -976,80 +827,7 @@
       `).join('');
     }
 
-    /* ==========================================================================
-       9. DEV TOOLS & HELPER UTILITIES
-       ========================================================================== */
- /*   function handleDevCounterClick() {
-      devTapCount++;
-      if (devTapTimer) clearTimeout(devTapTimer);
-      
-      if (devTapCount >= 7) {
-        devTapCount = 0;
-        openDevToolsModal();
-      } else {
-        devTapTimer = setTimeout(() => { devTapCount = 0; }, 2000);
-      }
-    }
-
-    function openDevToolsModal() {
-      document.getElementById('devToolsModal').classList.remove('hidden');
-    }
-
-    function closeDevToolsModal() {
-      document.getElementById('devToolsModal').classList.add('hidden');
-    }
-
-     function setDevDeviceMode(isMobile) {
-      isMobileDevice = isMobile;
-      applyDeviceModeUI();
-      showToast(`Device mode overridden to: ${isMobile ? 'Mobile' : 'Desktop'}`);
-    }
-
-    async function addDemoTrees(count) {
-      const demoSpecies = ['Oak', 'Pine', 'Birch', 'Maple', 'Banyan', 'Redwood', 'Eucalyptus', 'Cedar'];
-      
-      for (let i = 0; i < count; i++) {
-        const lat = 20 + (Math.random() - 0.5) * 40;
-        const lng = (Math.random() - 0.5) * 120;
-        const species = demoSpecies[Math.floor(Math.random() * demoSpecies.length)];
-        const age = Math.floor(Math.random() * 120) + 1;
-        const certainty = Math.floor(Math.random() * 9) + 2;
-
-        const demoTree = {
-          id: 'demo_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
-          lat: lat,
-          lng: lng,
-          type: species,
-          age: age,
-          certainty: certainty,
-          logs: [{
-            photo: `https://placehold.co/600x400/0a1128/52b788?text=${encodeURIComponent(species)}+Tree`,
-            timestamp: new Date().toISOString(),
-            certainty: certainty
-          }]
-        };
-        treeDB.unshift(demoTree);
-        await saveTreeToCloud(demoTree); // Save the most recent demo tree to cloud
-      }
-
-      
-      refreshMapHeatmaps();
-      renderBlogFeed();
-      if (analyticsMap) runAnalyticsQuery();
-      showToast(`Added ${count} demo trees into database!`);
-    }
-
-    async function clearAllTrees() {
-      const { error } = await supabaseClient.from('trees').delete().neq('id', ''); 
-      if (error) console.warn('Cloud delete warning:', error);
-      treeDB = [];
-      refreshMapHeatmaps();
-      renderBlogFeed();
-      if (analyticsMap) runAnalyticsQuery();
-      showToast("All tree data cleared from database.");
-    }
-*/
-    function showToast(message, isError = false) {
+     function showToast(message, isError = false) {
       const toast = document.getElementById('toast');
       const toastMsg = document.getElementById('toastMsg');
       toastMsg.innerText = message;

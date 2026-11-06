@@ -5,41 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Afforest - Global Tree Logging & Analytics</title>
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="themes.js"></script>
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!--manifest-->
   <link rel="manifest" href="manifest.json">
 
-  <!-- Chart.js for Spatial Analytics -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="stylinginstyle.css">
 
-  <!-- Supbase database stuff-->
    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="h-full text-slate-100 bg-navy-950 flex flex-col antialiased overflow-x-hidden">
 
-  <!-- Desktop Notice Banner -->
   <div id="desktopNotice" class="hidden bg-amber-500/10 border-b border-amber-500/30 text-amber-200 px-4 py-2 text-xs md:text-sm text-center flex items-center justify-center gap-2 z-50">
     <i class="fa-solid fa-laptop-code text-amber-400"></i>
     <span><strong>Desktop View Mode:</strong> Posting new tree entries is restricted to mobile devices with active camera hardware. Full viewing and analytical features remain active.</span>
   </div>
 
-  <!-- Top Header Navigation -->
   <header class="bg-navy-900/90 backdrop-blurmd- border-b border-navy-800 sticky top-0 z-50 px-4 py-3 flex items-center justify-between shadow-lg">
     <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
       <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-forest-700 via-forest-500 to-cyanacc flex items-center justify-center shadow-md">
@@ -53,7 +44,6 @@
       </div>
     </div>
 
-    <!-- Live Tree Counter Widget (Header) -->
     <div class="flex items-center space-x-2 bg-navy-800/80 px-3 py-1.5 rounded-full border border-navy-700 cursor-pointer hover:bg-navy-700 transition" onclick="handleDevCounterClick()">
       <span class="relative flex h-2.5 w-2.5">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-forest-400 opacity-75"></span>
@@ -64,14 +54,12 @@
     </div>
   </header>
 
-  <!-- Main Content Container Pages -->
   <main class="flex-1 relative overflow-hidden flex flex-col">
 
-    <!-- PAGE 1: HOME PAGE (Structured Flow: Counter -> Heatmap -> About -> Credits) -->
+    <!--homepg -->
     <section id="page-home" class="page-content h-full overflow-y-auto relative active">
       <div class="max-w-4xl mx-auto px-4 py-6 space-y-8 pb-28">
 
-        <!-- 1. Top Counter Section -->
         <div class="bg-navy-900/90 border border-navy-700/80 p-6 md:p-8 rounded-3xl shadow-2xl text-center glow-forest">
           <div class="inline-flex items-center justify-center p-3 bg-forest-800/50 rounded-2xl mb-3 text-forest-400">
             <i class="fa-solid fa-earth-americas text-3xl"></i>
@@ -90,7 +78,6 @@
           </div>
         </div>
 
-        <!-- 2. Global Canopy Distribution Display -->
         <div class="space-y-2">
           <div class="flex items-center justify-between px-1">
             <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
@@ -101,8 +88,7 @@
             <div id="homeHeatmap" class="w-full h-full z-0"></div>
           </div>
         </div>
-
-        <!-- 3. About Us Section -->
+\
         <div class="bg-navy-900 border border-navy-800/90 rounded-3xl p-6 md:p-8 shadow-xl space-y-4">
           <div class="flex items-center gap-3 border-b border-navy-800 pb-4">
             <div class="w-10 h-10 rounded-xl bg-forest-800/40 text-forest-400 flex items-center justify-center text-xl">
@@ -117,18 +103,12 @@
           <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
             <strong>Afforest</strong> is a community platform designed to log, track, and monitor the growth of trees worldwide. Whether it's an ancient oak in an old forest or a sapling planted today in an urban neighborhood, Afforest lets anyone document nature with ease.
           </p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2"> <!-- change md:grid-cols-3 and uncomment section if duplicate merging is enabled later-->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
             <div class="bg-navy-950 p-3.5 rounded-2xl border border-navy-800/60">
               <i class="fa-solid fa-user-shield text-cyanacc mb-2 text-base"></i>
               <h4 class="text-xs font-bold text-slate-200 mb-1">Zero Accounts</h4>
               <p class="text-[11px] text-slate-400">No registration or user logins to ensure personal location safety.</p>
             </div>
-           <!-- <div class="bg-navy-950 p-3.5 rounded-2xl border border-navy-800/60">
-              <i class="fa-solid fa-clone text-forest-400 mb-2 text-base"></i>
-              <h4 class="text-xs font-bold text-slate-200 mb-1">Auto Duplicate Log</h4>
-              <p class="text-[11px] text-slate-400">Re-photographed trees merge into a single tree history timeline.</p>
-            </div> -->
-            <div class="bg-navy-950 p-3.5 rounded-2xl border border-navy-800/60">
               <i class="fa-solid fa-draw-polygon text-purple-400 mb-2 text-base"></i>
               <h4 class="text-xs font-bold text-slate-200 mb-1">Spatial Tools</h4>
               <p class="text-[11px] text-slate-400">Draw custom polygon areas to analyze species distribution & mean ages.</p>
@@ -136,7 +116,6 @@
           </div>
         </div>
 
-        <!-- 4. Global Credits & Attributions Section -->
         <div class="bg-navy-900/60 border border-navy-800/60 rounded-2xl p-5 shadow-lg text-center space-y-3">
           <p class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
             <i class="fa-solid fa-code text-cyanacc"></i> Attributions
@@ -152,20 +131,17 @@
             <span><i class="fa-solid fa-cloud text-cyanacc mr-1"></i> Cloudflare</span>
             <span><i class="fa-brands fa-github text-slate-400 mr-1"></i> GitHub</span>
           </div>
-         <!-- <p class="text-[10px] text-slate-500 border-t border-navy-800/80 pt-3 max-w-lg mx-auto">
-            afforest is an open global initiative powered by public open-source spatial services. All tree observations are stored locally and mapped onto shared anonymous coordinates.
-          </p> -->
         </div>
 
       </div>
     </section>
 
-    <!-- PAGE 2: INTERACTIVE MAP PAGE -->
+    <!--mappg -->
     <section id="page-map" class="page-content h-full hidden relative flex-row flex-1 overflow-hidden">
       <div id="interactiveMap" class="w-full h-full flex-1 z-0"></div>
     </section>
 
-    <!-- PAGE 3: BLOG FEED PAGE -->
+    <!--blog -->
     <section id="page-blog" class="page-content h-full hidden overflow-y-auto p-4 md:p-6 bg-navy-950">
       <div class="max-w-3xl mx-auto space-y-4 pb-20">
         <div class="flex items-center justify-between mb-4">
@@ -179,12 +155,11 @@
         </div>
 
         <div id="blogFeedList" class="space-y-4">
-          <!-- Dynamically populated blog cards -->
         </div>
       </div>
     </section>
 
-    <!-- PAGE 4: DATA RETRIEVAL & SPATIAL ANALYTICS -->
+    <!--analpg-->
     <section id="page-analytics" class="page-content h-full hidden overflow-y-auto p-4 md:p-6 bg-navy-950">
       <div class="max-w-5xl mx-auto space-y-6 pb-24">
         <div>
@@ -194,7 +169,6 @@
           <p class="text-xs text-slate-400">Drop a pin radius or freehand draw a geographic region to compute tree counts, species breakdown, and mean age.</p>
         </div>
 
-        <!-- Mode Selection Tabs & Map Container -->
         <div class="bg-navy-900 border border-navy-800 rounded-2xl p-4 shadow-xl space-y-3">
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div class="flex bg-navy-950 p-1 rounded-xl border border-navy-800">
@@ -206,13 +180,11 @@
               </button>
             </div>
 
-            <!-- Pin Radius Slider Control -->
             <div id="radiusControl" class="flex items-center gap-3">
               <label class="text-xs font-medium text-slate-300">Radius: <span id="radiusVal" class="text-forest-400 font-bold">10</span> km</label>
               <input type="range" id="radiusRange" min="1" max="500" value="10" oninput="updateRadius(this.value)" class="w-28 md:w-40 accent-forest-500 cursor-pointer">
             </div>
 
-            <!-- Freehand Drawing Instructions -->
             <div id="drawControl" class="hidden flex items-center gap-2">
               <span class="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2.5 py-1 rounded-lg">
                 <i class="fa-solid fa-hand-pointer"></i> Touch / Click and drag on map to draw area
@@ -223,16 +195,13 @@
             </div>
           </div>
 
-          <!-- Spatial Query Map Box -->
           <div class="relative w-full h-72 md:h-80 rounded-xl overflow-hidden border border-navy-700/60">
             <div id="analyticsMap" class="w-full h-full z-0"></div>
             <canvas id="freehandCanvas" class="hidden"></canvas>
           </div>
         </div>
 
-        <!-- Analytics Output Dashboard -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Stat Box 1: Total Trees -->
           <div class="bg-navy-900 border border-navy-800 rounded-2xl p-4 flex flex-col justify-between">
             <div class="flex items-center justify-between">
               <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Filtered Trees</span>
@@ -244,7 +213,6 @@
             <p class="text-[11px] text-slate-400">Total trees identified inside selection</p>
           </div>
 
-          <!-- Stat Box 2: Mean Age -->
           <div class="bg-navy-900 border border-navy-800 rounded-2xl p-4 flex flex-col justify-between">
             <div class="flex items-center justify-between">
               <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Mean Tree Age</span>
@@ -256,7 +224,6 @@
             <p class="text-[11px] text-slate-400">Calculated average age across specified zone</p>
           </div>
 
-          <!-- Stat Box 3: Species Diversity -->
           <div class="bg-navy-900 border border-navy-800 rounded-2xl p-4 flex flex-col justify-between">
             <div class="flex items-center justify-between">
               <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Unique Species</span>
@@ -269,9 +236,7 @@
           </div>
         </div>
 
-        <!-- Charts Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Chart 1: Species Distribution Bar Graph -->
           <div class="bg-navy-900 border border-navy-800 rounded-2xl p-4">
             <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Tree Types Distribution</h3>
             <div class="relative h-56 w-full">
@@ -279,7 +244,6 @@
             </div>
           </div>
 
-          <!-- Chart 2: Mean Age Per Species -->
           <div class="bg-navy-900 border border-navy-800 rounded-2xl p-4">
             <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Average Age by Tree Type</h3>
             <div class="relative h-56 w-full">
@@ -288,14 +252,12 @@
           </div>
         </div>
 
-        <!-- Filtered Trees List Section -->
         <div class="bg-navy-900 border border-navy-800 rounded-2xl p-4">
           <h3 class="text-sm font-bold text-slate-200 mb-3 flex items-center justify-between">
             <span>Trees in Selected Region</span>
             <span id="filteredListBadge" class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-navy-800 text-forest-400">0 Items</span>
           </h3>
           <div id="analyticsTreeList" class="space-y-2 max-h-60 overflow-y-auto pr-1">
-            <!-- Dynamically populated list -->
           </div>
         </div>
       </div>
@@ -303,7 +265,7 @@
 
   </main>
 
-  <!-- CREATE POST MODAL (Mobile Camera Logging) -->
+  <!--create post -->
   <div id="createPostModal" class="fixed inset-0 bg-navy-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-navy-900 border border-navy-700 w-full max-w-lg rounded-3xl p-5 shadow-2xl space-y-4 my-auto relative">
       <div class="flex items-center justify-between border-b border-navy-800 pb-3">
@@ -316,7 +278,6 @@
       </div>
 
       <form id="treePostForm" onsubmit="handleTreeSubmit(event)" class="space-y-4">
-        <!-- Compulsory Photo Upload / Camera Capture -->
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tree Photo <span class="text-rose-400">*</span></label>
           <div id="photoContainer" class="border-2 border-dashed border-navy-700 hover:border-forest-500 rounded-2xl p-4 text-center cursor-pointer transition bg-navy-950/50 relative overflow-hidden" onclick="document.getElementById('treePhotoInput').click()">
@@ -332,7 +293,6 @@
           </div>
         </div>
 
-        <!-- Location GPS Section -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <label class="text-xs font-semibold text-slate-300">Coordinates <span class="text-rose-400">*</span></label>
@@ -351,7 +311,6 @@
           <p id="geoStatus" class="text-[10px] text-slate-400 mt-1">Click 'Get GPS' to fetch precise location coordinates.</p>
         </div>
 
-        <!-- Certainty Slider (10 Step Levels) -->
         <div>
           <div class="flex items-center justify-between mb-1">
             <label class="text-xs font-semibold text-slate-300">Data Certainty Score</label>
@@ -368,7 +327,6 @@
           </div>
         </div>
 
-        <!-- Tree Details Inputs (Disabled when Unknown) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Tree Type / Species <span id="reqTreeType" class="text-rose-400 hidden">*</span></label>
@@ -380,14 +338,6 @@
           </div>
         </div>
 
-        <!-- Duplicate Notice Box -->
- <!--     <div id="duplicateAlert" class="hidden bg-cyanacc/10 border border-cyanacc/30 p-3 rounded-xl text-xs text-cyan-200">
-          <i class="fa-solid fa-circle-info text-cyanacc mr-1"></i>
-          <strong>Nearby Tree Found:</strong> An existing tree was detected within ~20 meters. Submitting will log this new image under that tree's history data blog instead of creating a duplicate!
-        </div>
-      -->
-        
-        <!-- Form Action Buttons -->
         <div class="flex gap-2 pt-2">
           <button type="button" onclick="closeCreateModal()" class="flex-1 bg-navy-800 hover:bg-navy-700 text-slate-300 py-2.5 rounded-xl text-xs font-semibold transition">
             Cancel
@@ -400,7 +350,6 @@
     </div>
   </div>
 
-  <!-- TREE DETAIL MODAL VIEW -->
   <div id="treeDetailModal" class="fixed inset-0 bg-navy-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-navy-900 border border-navy-700 w-full max-w-lg rounded-3xl p-5 shadow-2xl space-y-4 my-auto relative">
       <div class="flex items-center justify-between border-b border-navy-800 pb-3">
@@ -412,70 +361,11 @@
         </button>
       </div>
 
-      <div id="modalTreeBody" class="space-y-4">
-        <!-- Content inserted dynamically -->
-      </div>
+      <div id="modalTreeBody" class="space-y-4"></div>
     </div>
   </div>
- 
-  <!-- HIDDEN DEV TOOLS SPLASH MODAL -->
-<!-- <div id="devToolsModal" class="fixed inset-0 bg-navy-950/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-navy-900 border border-forest-500/50 w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-5 my-auto relative glow-forest">
-      <div class="flex items-center justify-between border-b border-navy-800 pb-3">
-        <div class="flex items-center gap-2.5 text-forest-400">
-          <i class="fa-solid fa-terminal text-xl"></i>
-          <h3 class="text-lg font-extrabold text-slate-100">Developer Tools</h3>
-        </div>
-        <button onclick="closeDevToolsModal()" class="w-8 h-8 rounded-full bg-navy-800 text-slate-400 hover:text-white flex items-center justify-center">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
 
-      <div class="space-y-4 text-xs"> --> 
-        <!-- Device Emulation Mode -->
-        <!--<div class="bg-navy-950 p-4 rounded-2xl border border-navy-800 space-y-2">
-          <label class="font-bold text-slate-200 block flex items-center justify-between">
-            <span>Device Mode Override</span>
-            <span id="devDeviceStatusBadge" class="text-[10px] px-2 py-0.5 rounded-full font-semibold"></span>
-          </label>
-          <p class="text-slate-400 text-[11px]">Override hardware detection to test camera post permissions.</p>
-          <div class="grid grid-cols-2 gap-2 pt-1">
-            <button onclick="setDevDeviceMode(true)" class="bg-navy-800 hover:bg-forest-700 text-slate-200 py-2 rounded-xl font-semibold border border-navy-700 transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-mobile-screen text-forest-400"></i> Mobile Mode
-            </button>
-            <button onclick="setDevDeviceMode(false)" class="bg-navy-800 hover:bg-rose-900/40 text-slate-200 py-2 rounded-xl font-semibold border border-navy-700 transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-desktop text-rose-400"></i> Desktop Mode
-            </button>
-          </div>
-        </div>-->
-
-        <!-- Demo Tree Generator -->
- <!--       <div class="bg-navy-950 p-4 rounded-2xl border border-navy-800 space-y-2">
-          <label class="font-bold text-slate-200 block">Database Seeding</label>
-          <p class="text-slate-400 text-[11px]">Inject mock tree observations across global coordinates.</p>
-          <div class="grid grid-cols-2 gap-2 pt-1">
-            <button onclick="addDemoTrees(5)" class="bg-forest-700 hover:bg-forest-600 text-white py-2 rounded-xl font-semibold transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-plus"></i> Add 5 Demo Trees
-            </button>
-            <button onclick="addDemoTrees(20)" class="bg-forest-600 hover:bg-forest-500 text-white py-2 rounded-xl font-semibold transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-layer-group"></i> Add 20 Demo Trees
-            </button>
-          </div>
-        </div>
-      -->
-        <!-- Wipe Database Option -->
-  <!--      <div class="bg-navy-950 p-4 rounded-2xl border border-rose-500/20 space-y-2">
-          <label class="font-bold text-rose-300 block">Clear Database</label>
-          <p class="text-slate-400 text-[11px]">Permanently remove all logged trees.</p>
-          <button onclick="clearAllTrees()" class="w-full bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-500/40 py-2 rounded-xl font-semibold transition flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-trash-can"></i> Reset & Remove All Trees
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
--->
-  <!-- Bottom Navigation Bar -->
+  <!-- navbar -->
   <nav class="bg-navy-900/95 backdrop-blur-md border-t border-navy-800 fixed bottom-0 left-0 right-0 z-50 px-3 py-2">
     <div class="max-w-md mx-auto grid grid-cols-5 items-center justify-items-center">
       <button onclick="navigateTo('home')" id="nav-home" class="nav-btn flex flex-col items-center gap-1 text-forest-400 transition">
@@ -488,7 +378,6 @@
         <span class="text-[10px] font-semibold">Map</span>
       </button>
 
-      <!-- Center Action Button (Mobile Camera Launch) -->
       <button onclick="openCreateModal()" id="nav-post" class="flex items-center justify-center -mt-3 w-12 h-12 rounded-full bg-gradient-to-tr from-forest-700 via-forest-500 to-cyanacc text-white shadow-xl glow-forest border-2 border-navy-950 transform active:scale-95 transition">
         <i class="fa-solid fa-plus text-xl"></i>
       </button>
@@ -505,7 +394,7 @@
     </div>
   </nav>
 
-  <!-- Notification Toast Container -->
+  <!-- toast -->
   <div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 bg-navy-800 border border-forest-500 text-slate-100 px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold z-50 transform -translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
     <i class="fa-solid fa-circle-check text-forest-400"></i>
     <span id="toastMsg">Action completed successfully</span>

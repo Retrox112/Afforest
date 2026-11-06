@@ -1,5 +1,5 @@
 # Afforest
-Afforest is a web wrapper based app that i created as a little passion project and for a appathon.
+Afforest is a web wrapper based app that i created as a little passion project.
 at times, the code demanded blood sweat and tears but nonetheless, its a pretty good, although a little buggy application.
 
 its an application designed such that people all over the world can use it to log trees at their surroundings and/or log trees they planted themselves.

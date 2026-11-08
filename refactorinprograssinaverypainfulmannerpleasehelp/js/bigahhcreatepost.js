@@ -1,24 +1,3 @@
-    //init var
-    export const STORAGE_KEY = 'afforest_trees_db_v2';
-
-    export let treeDB = [];
-    export let isMobileDevice = false;
-    export let devTapCount = 0;
-    export let devTapTimer = null;
-
-    export const CERTAINTY_MAP = {
-      1: "Unknown",
-      2: "Extremely Doubtful",
-      3: "Doubtful",
-      4: "Somewhat Uncertain",
-      5: "Uncertain",
-      6: "Moderately Certain",
-      7: "Fairly Certain",
-      8: "Almost Certain",
-      9: "Very Certain",
-      10: "Certain"
-    };
-
     // create post, cam
     let currentPhotoBase64 = null;
     let selectedLat = null;

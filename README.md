@@ -11,6 +11,14 @@ ive only released the android ver. but feel free to fork this repo and use PWABu
 
 Ai disclosure: ai was used to make the initial base application and was used to make complex bits of code such as map rendering and used in refactoring.
 
+keyfeatures include the analytics map allowing you to analyze tree data in a specific area, pretty neat huh?
+and the blog post, where you can see logged trees, i currently older to newer, which i must fix, nonetheless, its a neat way to view the entries made. 
+if you tap on the tree markers on the map you will see a small popup in which you can view details and also open the full detail view.
+the tech i used is leaflet for the maps, and fa-icons for just about all the icons, i.e all the assets except the icon. 
+using a supabase database table to store all the stuff, i made the key and url public so you can access it, wether your own program to read and analyze data, or smh like that
+idk how exactly the maps work, that code is pretty much beyond me, same for the freehanddraw so i used ai to do all that. 
+this is a good challenge frfr
+
 btw here are a few screenshots from the app,
 
 ![alt text](<screenies/Screenshot 2026-11-04 11.35.19 PM.png>)

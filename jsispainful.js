@@ -445,7 +445,7 @@
 
         // Create new tree entry
         const newTree = {
-          id: 'tree_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+          id: 'tree_' + Date.now(),
           lat: selectedLat,
           lng: selectedLng,
           type: treeType,

@@ -11,7 +11,7 @@
     const certainty = Math.floor(Math.random() * 9) + 2;
 
     const demoTree = {
-      id: 'demo_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+      id: 'demo_' + Date.now(),
       lat: lat,
       lng: lng,
       type: species,

@@ -1,49 +1,22 @@
+import {treeDB} from './db.js';
+import {homeMap, interactiveMap, analyticsMap} from './mapsinit.js';
+import {setupAnalyticsMap} from './mapsinit.js';
+import {pinMarker} from './mapsinit.js';
+import {analyticsVars} from './analatycvars.js';
+import {calculateDistanceMeters} from './dist.js';
+
+//analvars dec
+let analyticsMode = analyticsVars.analyticsMode;
+let radiusCircle = analyticsVars.radiusCircle;
+let drawnPolygon = analyticsVars.drawnPolygon;
+let drawnPoints = analyticsVars.drawnPoints;
+let isDrawing = analyticsVars.isDrawing;
+let chartSpeciesInst = analyticsVars.chartSpeciesInst;
+let chartAgesInst = analyticsVars.chartAgesInst;
 // analytics.js
-export let analyticsMode = 'pin'; // 'pin' | 'draw'
-let pinMarker = null;
-let radiusCircle = null;
-let drawnPolygon = null;
-let drawnPoints = [];
-let isDrawing = false;
-let chartSpeciesInst = null;
-let chartAgesInst = null;
 
 const DARK_TILES = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
 
-export function setupAnalyticsMap() {
-  if (analyticsMap) return;
-
-  analyticsMap = L.map('analyticsMap', { zoomControl: true }).setView([20, 0], 2);
-  L.tileLayer(DARK_TILES, { maxZoom: 16 }).addTo(analyticsMap);
-
-  analyticsPinsGroup = L.layerGroup().addTo(analyticsMap);
-  renderInteractivePins();
-
-  pinMarker = L.marker([20, 0], { draggable: true }).addTo(analyticsMap);
-  radiusCircle = L.circle([20, 0], {
-    radius: 100000,
-    color: '#52b788',
-    fillColor: '#52b788',
-    fillOpacity: 0.2,
-    zIndex: 500
-  }).addTo(analyticsMap);
-
-  pinMarker.on('drag', function(e) {
-    const latlng = e.target.getLatLng();
-    radiusCircle.setLatLng(latlng);
-    runAnalyticsQuery();
-  });
-
-  analyticsMap.on('click', function(e) {
-    if (analyticsMode === 'pin') {
-      pinMarker.setLatLng(e.latlng);
-      radiusCircle.setLatLng(e.latlng);
-      runAnalyticsQuery();
-    }
-  });
-
-  setupFreehandCanvas();
-}
 
 export function setAnalyticsMode(mode) {
   analyticsMode = mode;
@@ -116,6 +89,7 @@ export function setupFreehandCanvas() {
 
 function startDraw(e) {
   if (analyticsMode !== 'draw' || !canvasCtx) return;
+  clearFreehandDraw();
   isDrawing = true;
   drawnPoints = [];
   canvasCtx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
@@ -136,7 +110,7 @@ function drawMove(e) {
   canvasCtx.strokeStyle = '#52b788';
   canvasCtx.lineWidth = 4;
   canvasCtx.shadowColor = '#52b788';
-  canvasCtx.shadowBlur = 10;
+  canvasCtx.shadowBlur = null;
   canvasCtx.fillStyle = 'rgba(82, 183, 136, 0.35)';
   
   canvasCtx.moveTo(drawnPoints[0].x, drawnPoints[0].y);

@@ -1,3 +1,7 @@
+import {homePinsGroup} from './mapsinit.js';
+import {interactivePinsGroup} from './mapsinit.js';
+import {analyticsPinsGroup} from './mapsinit.js';
+import {treeDB} from './db.js';
 //map pins
    export function renderInteractivePins() {
       if (homePinsGroup) homePinsGroup.clearLayers();

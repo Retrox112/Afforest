@@ -1,3 +1,6 @@
+import {interactiveMap, analyticsMap} from './mapsinit.js';
+import {homeMap} from './mapsinit.js';
+import {runAnalyticsQuery} from './bigahhanalytics.js';
 //nav
     export function navigateTo(pageId) {
       document.querySelectorAll('.page-content').forEach(el => {

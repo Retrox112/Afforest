@@ -1,0 +1,25 @@
+{
+  "background_color": "#0a1128",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Afforest",
+  "orientation": "any",
+  "scope": "./",
+  "short_name": "Afforest",
+  "start_url": "./index.html",
+  "theme_color": "#52b788",
+  "icons": [
+    {
+      "src": "https://github.com/Retrox112/Afforest/blob/main/ico/launchericon-192x192.png?raw=true",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://github.com/Retrox112/Afforest/blob/main/ico/launchericon-512x512.png?raw=true",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

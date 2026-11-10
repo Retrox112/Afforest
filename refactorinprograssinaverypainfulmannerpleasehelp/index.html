@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="flex items-center space-x-2 bg-navy-800/80 px-3 py-1.5 rounded-full border border-navy-700 cursor-pointer hover:bg-navy-700 transition" onclick="handleDevCounterClick()">
+    <div class="flex items-center space-x-2 bg-navy-800/80 px-3 py-1.5 rounded-full border border-navy-700 cursor-pointer hover:bg-navy-700 transition">
       <span class="relative flex h-2.5 w-2.5">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-forest-400 opacity-75"></span>
         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-forest-500"></span>
@@ -400,13 +400,6 @@
     <i class="fa-solid fa-circle-check text-forest-400"></i>
     <span id="toastMsg">Action completed successfully</span>
   </div>
-
-  <!-- Global window bindings for inline HTML handlers in ES Modules -->
-  <script>
-    function handleDevCounterClick() {
-      alert("Afforest Global Registry v2.0 - Total active tree records verified.");
-    }
-  </script>
 
   <script type="module" src="js/maininitthingy.js"></script>
 </body>

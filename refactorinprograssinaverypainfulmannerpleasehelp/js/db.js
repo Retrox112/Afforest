@@ -1,4 +1,10 @@
-    //init var
+import {showToast} from './toast.js';
+import {renderBlogFeed} from './blogfeed.js';
+import {refreshMapHeatmaps} from './mapsinit.js';
+import {homePinsGroup} from './mapsinit.js';
+
+
+//init var
     export const STORAGE_KEY = 'afforest_trees_db_v2';
 
     export let treeDB = [];
@@ -19,10 +25,13 @@
       10: "Certain"
     };
 
+
 //database
   const SUPABASE_URL = 'https://ztzooirkdgvlpxnkzlgu.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0em9vaXJrZGd2bHB4bmt6bGd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MzAzODEsImV4cCI6MjEwOTIwNjM4MX0.VFkr319f9ZFPD3zUXhohdRdIErjjOcr-l7rk33VRPb8';
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  treeDB = [];
 
   export async function loadDatabase() {
     try {

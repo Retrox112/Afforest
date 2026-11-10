@@ -1,0 +1,60 @@
+    body {
+      font-family: 'Inter', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a1128;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #273459;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #52b788;
+    }
+
+    .leaflet-container {
+      background-color: #070b19 !important;
+      font-family: 'Inter', sans-serif;
+    }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+      background: #1c2541 !important;
+      color: #f8fafc !important;
+      border: 1px solid #273459;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .leaflet-popup-content {
+      margin: 12px 14px;
+      line-height: 1.4;
+    }
+
+    .glow-forest {
+      box-shadow: 0 0 20px rgba(82, 183, 136, 0.35);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 20px rgba(0, 180, 216, 0.35);
+    }
+
+    #freehandCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 400;
+      cursor: crosshair;
+      touch-action: none;
+      pointer-events: none;
+    }
+
+  #interactiveMap, #homeHeatmap, #analyticsMap {
+    min-height: 350px;
+    width: 100%;
+  }

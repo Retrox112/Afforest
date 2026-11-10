@@ -1,3 +1,9 @@
+    import {showToast} from './toast.js';
+    import {CERTAINTY_MAP, treeDB} from './db.js';
+    import {refreshMapHeatmaps} from './mapsinit.js';
+    import {renderBlogFeed} from './blogfeed.js';
+    import {updateTreeCounters, saveTreeToCloud} from './db.js';
+    
     // create post, cam
     let currentPhotoBase64 = null;
     let selectedLat = null;

@@ -2,16 +2,15 @@
 import { showToast } from './toast.js';
 import { loadDatabase } from './db.js';
 import { renderBlogFeed } from './blogfeed.js';
-import { initMaps, refreshMapHeatmaps } from './mapsinit.js';
-import { setupAnalyticsMap, setAnalyticsMode, updateRadius, clearFreehandDraw } from './bigahhanalytics.js';
+import { initMaps} from './mapsinit.js';
+import { setAnalyticsMode, updateRadius, clearFreehandDraw } from './bigahhanalytics.js';
 import { navigateTo } from './nav.js';
-import { calculateDistanceMeters } from './dist.js';
-import { renderInteractivePins } from './mappins.js';
 import {handleTreeSubmit, updateCertaintyUI, handlePhotoSelect, openTreeDetail, timezoneOffset} from './bigahhcreatepost.js';
 import {closeCreateModal, openCreateModal} from './bigahhcreatepost.js';
 import {closeDetailModal} from './bigahhcreatepost.js';
 import { updateTreeCounters } from './db.js';
-
+import { acquireGPSLocation } from './bigahhcreatepost.js';
+import {setupAnalyticsMap} from './mapsinit.js';
 
 window.handleTreeSubmit = handleTreeSubmit;
 window.updateCertaintyUI = updateCertaintyUI;

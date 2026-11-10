@@ -20,7 +20,7 @@ import {treeDB, CERTAINTY_MAP} from './db.js';
       }
 
       feedContainer.innerHTML = treeDB.map(tree => {
-        const latestLog = tree.logs && tree.logs.length > 0 ? tree.logs[tree.logs.length - 1] : null;
+        const latestLog = tree.logs.length > 0? tree.logs[tree.logs.length - 1] : null;
         const photoUrl = latestLog ? latestLog.photo : 'https://placehold.co/600x400/0a1128/52b788?text=Tree+Observation';
         const logCount = tree.logs ? tree.logs.length : 1;
         const certaintyText = CERTAINTY_MAP[tree.certainty] || 'Unknown';

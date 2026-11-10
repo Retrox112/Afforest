@@ -147,13 +147,13 @@
 
         // Create new tree entry
         const newTree = {
-          id: 'tree_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+          id: 'tree_' + Date.now(),
           lat: selectedLat,
           lng: selectedLng,
           type: treeType,
           age: treeAge,
           certainty: certainty,
-          created_at: new Date().toISOString() + timezoneOffset(), // Add timestamp for cloud database
+          created_at: new Date().toISOString() + timezoneOffset(),
           logs: [{
             photo: currentPhotoBase64,
             timestamp: new Date().toISOString(),
